@@ -1,0 +1,5 @@
+omegaconf
+torch == 2.0.1
+accerlate == 0.22.0
+transformers == 4.32.0
+datasets == 2.14.4
