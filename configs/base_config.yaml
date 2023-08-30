@@ -1,30 +1,27 @@
+gpu_num: "1" # 0, 1
 seed: 42
 
 config_name: base_config
 
 data:
-  path: "data/train_data.txt"
+  path: "/home/taejoon/HDD_18TB_2/PLM/Crawled_Data/open-target-pub-abstract.txt"
   validation_split_percentage: 10
   mlm_probability: 0.15
 
 tokenizer: 
-  name: bert-base-uncased
+  name: "/home/taejoon/HDD_18TB_2/PLM/Saved_tokenizers/tokenizer_40000"
   max_length: 512
 
 model:
   name: bert-base-uncased
 
 training:
-  output_dir: saved_models
-  num_train_epochs: 1
+  output_dir: "./pretrained_bert_model/230830_vocab40000-onlyabstract-bertbase"
+  num_train_epochs: 40
   save_total_limit: 2
   per_device_train_batch_size: 64
   per_device_eval_batch_size: 64
-  evaluation_strategy: "steps"
-  save_strategy: "steps"
-  warmup_steps: 500
-  weight_decay: 0.01
-  logging_dir: "logs"
+  save_steps: 10_000
   load_best_model_at_end: true
   metric_for_best_model: "eval_loss"
   greater_is_better: false
