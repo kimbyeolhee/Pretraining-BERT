@@ -5,7 +5,7 @@ config_name: base_config
 
 data:
   path: "/home/taejoon/HDD_18TB_2/PLM/Crawled_Data/open-target-pub-abstract.txt"
-  validation_split_percentage: 10
+  validation_split_percentage: "10"
   mlm_probability: 0.15
 
 tokenizer: 
@@ -19,8 +19,8 @@ training:
   output_dir: "./pretrained_bert_model/230830_vocab40000-onlyabstract-bertbase"
   num_train_epochs: 40
   save_total_limit: 2
-  per_device_train_batch_size: 64
-  per_device_eval_batch_size: 64
+  per_device_train_batch_size: 32
+  per_device_eval_batch_size: 32
   save_steps: 10_000
   load_best_model_at_end: true
   metric_for_best_model: "eval_loss"
