@@ -1,9 +1,6 @@
 import argparse
-import logging
 import os
 
-import datasets
-import torch
 from datasets import load_dataset
 from omegaconf import OmegaConf
 from transformers import (
@@ -45,7 +42,9 @@ def main(config, device):
     # Load pretrained model and tokenizer
     logger.info("##### Loading pretrained model and tokenizer #####")
     tokenizer = AutoTokenizer.from_pretrained(config.tokenizer.name)
-    model = AutoModelForMaskedLM.from_pretrained(config.model.name).to(device)
+    model = AutoModelForMaskedLM.from_pretrained(config.model.name)
+    model.resize_token_embeddings(tokenizer.vocab_size)
+    model.to(device)
 
     # Tokenize dataset
     logger.info("##### Tokenizing dataset #####")
@@ -79,7 +78,6 @@ def main(config, device):
         save_total_limit=config.training.save_total_limit,
         prediction_loss_only=True,
         seed=config.seed,
-        load_best_model_at_end=True,
         metric_for_best_model="eval_loss",
         greater_is_better=False,
     )
